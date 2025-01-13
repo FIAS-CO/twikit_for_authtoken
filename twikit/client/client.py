@@ -533,6 +533,22 @@ class Client:
                 return
         raise Exception('could not unlock the account.')
 
+    def get_auth_token(self) -> str:
+        """
+        現在のセッションからauth_tokenを取得します。
+
+        Returns
+        -------
+        :class:`str`
+        auth_token cookie値
+        """
+        cookies = self.get_cookies()
+        auth_token = cookies.get('auth_token')
+        if auth_token is None:
+            raise ValueError("auth_tokenが見つかりませんでした")
+        
+        return auth_token
+
     def get_cookies(self) -> dict:
         """
         Get the cookies.
